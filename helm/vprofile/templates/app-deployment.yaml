@@ -40,3 +40,5 @@ spec:
           ports:
             - name: vproapp-port
               containerPort: {{ .Values.app.containerPort }}
+            - name: vproapp-metrics
+              containerPort: {{ .Values.app.metricsPort }}

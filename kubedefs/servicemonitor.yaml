@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vproapp-servicemonitor
+  labels:
+    app: vproapp
+spec:
+  selector:
+    matchLabels:
+      app: vproapp
+  namespaceSelector:
+    any: true
+  endpoints:
+    - port: vproapp-metrics
+      interval: 30s
+      path: /metrics
+      honorLabels: true

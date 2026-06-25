@@ -1,9 +1,10 @@
 app:
   image: 516625675482.dkr.ecr.us-east-1.amazonaws.com/vprofile-appimage
-  tag: ca8c998
+  tag: c7b8af2
   replicas: 1
   containerPort: 8080
   servicePort: 8080
+  metricsPort: 9404
 db:
   image: vprocontainers/vprofiledb
   tag: latest
@@ -42,3 +43,9 @@ dockerregistry:
   username: ""
   password: ""
   email: ""
+
+serviceMonitor:
+  enabled: true
+  namespace: monitoring
+  interval: 30s
+  path: /metrics
