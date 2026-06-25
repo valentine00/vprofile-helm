@@ -1,20 +1,20 @@
 # vprofile-helm
 
-A GitOps-friendly Kubernetes deployment for the vprofile application.
+A GitOps Kubernetes deployment for the vprofile application.
 
 ## Structure
 
 - [argocd/](argocd/) - Argo CD application and project manifests
-- [helm/vprofile/](helm/vprofile/) - Helm chart for the vprofile application
+- [helm/vprofile/](helm/vprofile/) - Helm charts for the vprofile application as well as values.yaml file to control various variables
 - [kubedefs/](kubedefs/) - plain Kubernetes manifests for manual apply
 
 ## Helm chart
 
-The Helm chart is located in `helm/vprofile` and includes Deployment and Service templates plus an optional ServiceMonitor for Prometheus Operator.
+The Helm chart is located in `helm/vprofile` and includes Deployment and Service templates plus a ServiceMonitor for Prometheus Operator.
 
 ### Key templates
 
-- Service ports are defined in `helm/vprofile/templates/services.yaml` and include a named metrics port `vproapp-metrics`.
+- Service ports are defined in `helm/vprofile/templates/services.yaml` and include a named metrics port `vproapp-metrics`, to allow metrics to be gathered from the exporter.
 - The ServiceMonitor template is `helm/vprofile/templates/servicemonitor.yaml` and is controlled by chart values.
 
 ### Values (ServiceMonitor)
@@ -24,7 +24,6 @@ You can control the ServiceMonitor from `helm/vprofile/values.yaml` using the `s
 ```yaml
 serviceMonitor:
 	enabled: true        # set false to disable creating a ServiceMonitor
-	namespace: monitoring # optional: target namespace for scraping (defaults to release namespace)
 	interval: 30s
 	path: /metrics
 ```
@@ -67,5 +66,4 @@ kubectl apply -f kubedefs/
 
 - The application exposes HTTP on the port configured at `.Values.app.servicePort` and metrics on `.Values.app.metricsPort`.
 - The ServiceMonitor (when enabled) scrapes the named port `vproapp-metrics` on the app service.
-- If Prometheus Operator does not discover ServiceMonitors across namespaces by default, set `serviceMonitor.namespace` to the namespace where your Prometheus Operator watches ServiceMonitor resources.
 
