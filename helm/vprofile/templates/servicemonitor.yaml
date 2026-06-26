@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: vproapp
+    release: kube-prometheus-stack
 spec:
   selector:
     matchLabels:
