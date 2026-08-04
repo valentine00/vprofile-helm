@@ -1,6 +1,6 @@
 app:
   image: 516625675482.dkr.ecr.us-east-1.amazonaws.com/vprofile-appimage
-  tag: c7b8af2
+  tag: d268883
   replicas: 1
   containerPort: 8080
   servicePort: 8080
@@ -43,7 +43,6 @@ dockerregistry:
   username: ""
   password: ""
   email: ""
-
 serviceMonitor:
   enabled: true
   namespace: monitoring
